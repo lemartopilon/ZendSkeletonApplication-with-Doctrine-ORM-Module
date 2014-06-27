@@ -25,3 +25,5 @@ Configure Base Url and Base Path
 --------------------------------
 
     File : module/Application/config/module.config.php
+    Example: 'base_url' => '/test/'
+    URL access: http://localhost/test/
