@@ -8,7 +8,7 @@
  */
 
 return array(
-    'base_url' => '/zf-test/',
+    'base_url' => '/',
     'doctrine' => array(
         'driver' => array(
             'application_entities' => array(
@@ -92,7 +92,7 @@ return array(
         ),
     ),
     'view_manager' => array(
-        'base_path' => '/zf-test/',
+        'base_path' => '/',
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'doctype' => 'HTML5',
