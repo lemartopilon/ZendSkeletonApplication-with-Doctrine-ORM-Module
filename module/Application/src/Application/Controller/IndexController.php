@@ -9,15 +9,28 @@
 
 namespace Application\Controller;
 
+use Application\Entity\User;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
-use Application\Entity\User;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+
+        echo "A".PHP_EOL;
+        $userService = $this->getServiceLocator()->get('UserService');
+
+        echo $userService->stringUser();
+
+        $user = new User();
+        $user->setFullName('Test User');
+
+        echo "B".PHP_EOL;
+
+        $userService->addUser($user);
+
+        echo "C".PHP_EOL;
 
         /*$objectManager = $this->getServiceLocator()
             ->get('Doctrine\ORM\EntityManager');
@@ -34,6 +47,11 @@ class IndexController extends AbstractActionController
 
         die(); // yes, I'm lazy*/
 
+        return new ViewModel();
+    }
+
+    public function testAction()
+    {
         return new ViewModel();
     }
 }

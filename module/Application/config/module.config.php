@@ -8,7 +8,7 @@
  */
 
 return array(
-    'base_url' => '/',
+    'base_url' => '/zf-test/',
     'doctrine' => array(
         'driver' => array(
             'application_entities' => array(
@@ -35,12 +35,43 @@ return array(
                         'action' => 'index',
                     ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                'action' => 'index',
+                                '__NAMESPACE__' => 'Application\Controller'
+                            ),
+                        ),
+                    ),
+                    'slash' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[:controller[/]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => 'index'
+                            ),
+                            'defaults' => array(
+                                'action' => 'index',
+                                '__NAMESPACE__' => 'Application\Controller'
+                            ),
+                        ),
+                    ),
+                ),
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'application' => array(
+            /*'application' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/application',
@@ -64,7 +95,22 @@ return array(
                         ),
                     ),
                 ),
-            ),
+            ),*/
+            /*'application' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/[:controller][/:action]', // <======== this is take the next steps of the module "profil"
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array( // force the default one
+                        'module'     => 'application',
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),*/
         ),
     ),
     'service_manager' => array(
@@ -88,11 +134,12 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Test' => 'Application\Controller\TestController',
         ),
     ),
     'view_manager' => array(
-        'base_path' => '/',
+        'base_path' => '/zf-test/',
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'doctype' => 'HTML5',
